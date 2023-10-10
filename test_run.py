@@ -89,6 +89,8 @@ def main():
         avg_accuracy_train = sum(accuracy_count) / len(accuracy_count)
         avg_loss = sum(loss_list) / len(loss_list)
 
+        best_test_accuracy = -1
+
         model.eval()
         with torch.no_grad():
             accuracy_count = []
@@ -101,6 +103,8 @@ def main():
                 accuracy_count.append(accuracy)
 
             avg_accuracy_test = sum(accuracy_count) / len(accuracy_count)
+            if avg_accuracy_test > best_test_accuracy:
+                best_test_accuracy = avg_accuracy_test
         # print(f"avg accuracy test = {avg_accuracy_test:.6f}")
 
 

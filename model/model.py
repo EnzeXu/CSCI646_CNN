@@ -37,6 +37,7 @@ class Model(nn.Module):
                     kernel_size=kernel_size,
                     padding=padding,
                     stride=stride)
+                nn.init.kaiming_normal_(conv_layer.weight, mode='fan_out', nonlinearity='relu')
                 activation = getattr(nn, config.settings["activation_list"][i])()
                 dropout = nn.Dropout(config.settings["dropout_list"][i])
                 batch_norm = nn.BatchNorm2d(out_channels)
@@ -51,10 +52,12 @@ class Model(nn.Module):
         for i in range(self.num_fc_layers):
             in_channels = config.settings["fc_layer_size_list"][i]
             out_channels = config.settings["fc_layer_size_list"][i + 1]
-            self.fc_layers.append(nn.Linear(
+            linear_layer = nn.Linear(
                 in_features=in_channels,
                 out_features=out_channels,
-            ))
+            )
+            nn.init.kaiming_normal_(linear_layer.weight, mode='fan_out', nonlinearity='relu')
+            self.fc_layers.append(linear_layer)
             if i != self.num_fc_layers - 1:
                 self.fc_layers.append(nn.ReLU())
                 self.fc_layers.append(nn.Dropout(0.2))
