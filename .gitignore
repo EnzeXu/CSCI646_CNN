@@ -1,0 +1,10 @@
+.idea/*
+__pycache__/*
+.DS_Store
+venv/*
+test*
+
+main.py
+origin_model.py
+run.sh
+utils.py
