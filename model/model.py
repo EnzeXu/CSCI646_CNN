@@ -37,7 +37,8 @@ class Model(nn.Module):
                     kernel_size=kernel_size,
                     padding=padding,
                     stride=stride)
-                nn.init.xavier_uniform_(conv_layer.weight)
+                if self.config.init:
+                    nn.init.xavier_uniform_(conv_layer.weight)
                 activation = getattr(nn, config.settings["activation_list"][i])()
                 dropout = nn.Dropout(config.settings["dropout_list"][i])
                 batch_norm = nn.BatchNorm2d(out_channels)
@@ -56,7 +57,8 @@ class Model(nn.Module):
                 in_features=in_channels,
                 out_features=out_channels,
             )
-            nn.init.xavier_uniform_(linear_layer.weight)
+            if self.config.init:
+                nn.init.xavier_uniform_(linear_layer.weight)
             self.fc_layers.append(linear_layer)
             if i != self.num_fc_layers - 1:
                 self.fc_layers.append(nn.ReLU())
