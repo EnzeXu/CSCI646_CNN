@@ -170,12 +170,12 @@ def main():
     avg_recall = recall.mean()
     avg_f1_score = f1_score.mean()
 
-    print("Precision:", precision)
-    print("Recall:", recall)
-    print("F1 Score:", f1_score)
-    print(f"Average Precision: {avg_precision:.4f}")
-    print(f"Average Recall: {avg_recall:.4f}")
-    print(f"Average F1 Score: {avg_f1_score:.4f}")
+    print("Precision Distribution:", precision)
+    print("Recall Distribution:", recall)
+    print("F1 Score Distribution:", f1_score)
+    print(f"Precision: {avg_precision:.4f}")
+    print(f"Recall: {avg_recall:.4f}")
+    print(f"F1 Score: {avg_f1_score:.4f}")
 
 
 
