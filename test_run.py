@@ -46,7 +46,6 @@ def main():
     record_t0 = time.time()
     record_time_epoch_step = record_t0
 
-    model = model.train()
     pt_folder = f"./saves/{config.prob}/"
     if not os.path.exists(pt_folder):
         os.makedirs(pt_folder)
@@ -55,6 +54,7 @@ def main():
     for epoch in range(1, num_epoches + 1):  # 10-50
         accuracy_count = []
         loss_list = []
+        model.train()
         for batch_id, (x_batch, y_labels) in enumerate(train_loader):
             x_batch, y_labels = x_batch.clone().to(device), y_labels.clone().to(device)
 
@@ -89,6 +89,20 @@ def main():
         avg_accuracy_train = sum(accuracy_count) / len(accuracy_count)
         avg_loss = sum(loss_list) / len(loss_list)
 
+        model.eval()
+        with torch.no_grad():
+            accuracy_count = []
+            for batch_id, (x_batch, y_labels) in enumerate(test_loader):
+                x_batch, y_labels = x_batch.clone().to(device), y_labels.clone().to(device)
+                output_y = model(x_batch)
+                _, y_pred = torch.max(output_y.data, 1)
+                correct_match = (y_labels == y_pred)
+                accuracy = float(torch.sum(correct_match)) / x_batch.shape[0]
+                accuracy_count.append(accuracy)
+
+            avg_accuracy_test = sum(accuracy_count) / len(accuracy_count)
+        # print(f"avg accuracy test = {avg_accuracy_test:.6f}")
+
 
         # print(f"Epoch {epoch:04d} / {num_epoches:04d}: avg accuracy train = {avg_accuracy_train:.6f}")
         record_time_epoch_step_tmp = time.time()
@@ -97,7 +111,7 @@ def main():
         record_time_epoch_step = record_time_epoch_step_tmp
         print(info_epoch + info_extended)
         wandb.log(
-            {'epoch': epoch, 'train_loss': avg_loss, 'accuracy': avg_accuracy_train, 'lr': optimizer.param_groups[0]["lr"]})
+            {'epoch': epoch, 'train_loss': avg_loss, 'train_accuracy': avg_accuracy_train, 'test_accuracy': avg_accuracy_test, 'lr': optimizer.param_groups[0]["lr"]})
         if epoch % 50 == 0 or epoch == 1:
             pt_save_path = f"{pt_folder}/{epoch:04d}.pt"
             checkpoint_info = {
@@ -121,19 +135,7 @@ def main():
     ##----------------------------------------
     ##    Step 9: model testing code below
     ##----------------------------------------
-    model.eval()
-    with torch.no_grad():
-        accuracy_count = []
-        for batch_id, (x_batch, y_labels) in enumerate(test_loader):
-            x_batch, y_labels = x_batch.clone().to(device), y_labels.clone().to(device)
-            output_y = model(x_batch)
-            _, y_pred = torch.max(output_y.data, 1)
-            correct_match = (y_labels == y_pred)
-            accuracy = float(torch.sum(correct_match)) / x_batch.shape[0]
-            accuracy_count.append(accuracy)
 
-        avg_accuracy_test = sum(accuracy_count) / len(accuracy_count)
-    print(f"avg accuracy test = {avg_accuracy_test:.6f}")
 
 if __name__ == "__main__":
     with wandb.init(project='CSCI646-CNN', name='CIFAR10-CNN'):
