@@ -48,7 +48,7 @@ def main():
         accuracy_count = []
         loss_list = []
         for batch_id, (x_batch, y_labels) in enumerate(train_loader):
-            x_batch, y_labels = x_batch.to(device), y_labels.to(device)
+            x_batch, y_labels = x_batch.clone().to(device), y_labels.clone().to(device)
 
             # print(x_batch.shape, y_labels.shape)
 
@@ -107,7 +107,7 @@ def main():
     with torch.no_grad():
         accuracy_count = []
         for batch_id, (x_batch, y_labels) in enumerate(test_loader):
-            x_batch, y_labels = torch.tensor(x_batch).to(device), torch.tensor(y_labels).to(device)
+            x_batch, y_labels = x_batch.clone().to(device), y_labels.clone().to(device)
             output_y = model(x_batch)
             _, y_pred = torch.max(output_y.data, 1)
             correct_match = (y_labels == y_pred)

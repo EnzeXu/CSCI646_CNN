@@ -19,9 +19,10 @@ class Model(nn.Module):
         self.config = config
 
         self.num_layers = config.settings["num_layers"]
+        self.num_fc_layers = config.settings["num_fc_layers"]
         self.layers = nn.ModuleList()
         self.pooling = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.fc_layer = None
+        self.fc_layers = nn.ModuleList()
 
         for i in range(self.num_layers):
             if config.settings["layer_list"][i] == "Conv2d":
@@ -45,11 +46,13 @@ class Model(nn.Module):
                 self.layers.append(batch_norm)
                 self.layers.append(dropout)
 
-                if i == self.num_layers - 1:
-                    self.fc_layer = nn.Linear(
-                        in_features=8192,
-                        out_features=10,
-                    )
+        for i in range(self.num_fc_layers):
+            in_channels = config.settings["fc_layer_size_list"][i]
+            out_channels = config.settings["fc_layer_size_list"][i + 1]
+            self.fc_layers.append(nn.Linear(
+                in_features=in_channels,
+                out_features=out_channels,
+            ))
 
 
         ##------------------------------------------------
@@ -68,7 +71,9 @@ class Model(nn.Module):
         x = self.pooling(x)
         x = x.view(x.size(0), -1)
         # print("x shape:", x.shape)
-        x = self.fc_layer(x)
+        for layer in self.fc_layers:
+            x = layer(x)
+        # x = self.fc_layer(x)
 
         return x
 
