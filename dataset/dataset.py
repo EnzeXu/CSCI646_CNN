@@ -16,9 +16,9 @@ def get_dataset(batch_size):
     test_trans = transforms.Compose([transforms.ToTensor(),
                                       transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
 
-    train_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=False, train=True,
+    train_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=True, train=True,
                                                  transform=train_trans)
-    test_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=False, train=False,
+    test_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=True, train=False,
                                                 transform=train_trans)
 
     train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True, num_workers=8)
