@@ -63,6 +63,9 @@ def main():
         os.makedirs(pt_folder)
         print(f"Created folder {pt_folder}")
     avg_accuracy_train, avg_accuracy_test = 0, 0
+    best_test_accuracy = -1
+    best_test_epoch = -1
+
     for epoch in range(1, num_epoches + 1):  # 10-50
         accuracy_count = []
         loss_list = []
@@ -84,8 +87,7 @@ def main():
         avg_accuracy_train = sum(accuracy_count) / len(accuracy_count)
         avg_loss = sum(loss_list) / len(loss_list)
 
-        best_test_accuracy = -1
-        best_test_epoch = -1
+
 
         model.eval()
         with torch.no_grad():
