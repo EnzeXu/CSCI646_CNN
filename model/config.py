@@ -2,7 +2,7 @@ import argparse
 
 SETTINGS = {
     "CIFAR10-CNN": {
-        "epochs": 500,
+        "epochs": 200,
         "num_layers": 2,
         "layer_list": ["Conv2d", "Conv2d"],
         "activation_list": ["ReLU", "ReLU"],
