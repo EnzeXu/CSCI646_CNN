@@ -161,9 +161,9 @@ def main():
     print("Precision:", precision)
     print("Recall:", recall)
     print("F1 Score:", f1_score)
-    print("Average Precision:", avg_precision)
-    print("Average Recall:", avg_recall)
-    print("Average F1 Score:", avg_f1_score)
+    print(f"Average Precision: {avg_precision:.4f}")
+    print(f"Average Recall: {avg_recall:.4f}")
+    print(f"Average F1 Score: {avg_f1_score:.4f}")
 
 
 
