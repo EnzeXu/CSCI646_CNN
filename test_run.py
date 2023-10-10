@@ -30,7 +30,7 @@ def main():
     ## --------------------------------------------------
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: 1 / (e / (0.1 * num_epoches) + 1))
-    loss_fun = nn.MSELoss() ## cross entropy loss
+    loss_fun = nn.CrossEntropyLoss()#nn.MSELoss() ## cross entropy loss
 
     ##--------------------------------------------
     ## load checkpoint below if you need
@@ -58,7 +58,7 @@ def main():
             ##---------------------------------------------------
             ## Step 4: write loss function below, refer to tutorial slides
             ##----------------------------------------------------
-            loss = loss_fun(output_y, nn.functional.one_hot(y_labels, 10).float())
+            loss = loss_fun(output_y, y_labels)
             loss_list.append(loss.item())
 
             ##----------------------------------------
@@ -84,7 +84,7 @@ def main():
 
         # print(f"Epoch {epoch:04d} / {num_epoches:04d}: avg accuracy train = {avg_accuracy_train:.6f}")
         record_time_epoch_step_tmp = time.time()
-        info_epoch = f'Epoch:{epoch:04d}/{num_epoches:04d}  train loss:{avg_loss:.4e}  accuracy:{avg_accuracy_train:.4f}'
+        info_epoch = f'Epoch:{epoch:04d}/{num_epoches:04d}  train loss:{avg_loss:.4e}  accuracy:{avg_accuracy_train:.4f}  '
         info_extended = f'lr:{optimizer.param_groups[0]["lr"]:.9e}  time:{(record_time_epoch_step_tmp - record_time_epoch_step):.2f}s  time total:{((record_time_epoch_step_tmp - record_t0) / 60.0):.2f}min  time remain:{((record_time_epoch_step_tmp - record_t0) / 60.0 / epoch * (num_epoches - epoch)):.2f}min'
         record_time_epoch_step = record_time_epoch_step_tmp
         print(info_epoch + info_extended)
