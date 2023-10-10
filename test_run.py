@@ -106,7 +106,7 @@ def main():
 
         # print(f"Epoch {epoch:04d} / {num_epoches:04d}: avg accuracy train = {avg_accuracy_train:.6f}")
         record_time_epoch_step_tmp = time.time()
-        info_epoch = f'Epoch:{epoch:04d}/{num_epoches:04d}  train loss:{avg_loss:.4e}  accuracy:{avg_accuracy_train:.4f}  '
+        info_epoch = f'Epoch:{epoch:04d}/{num_epoches:04d}  train loss:{avg_loss:.4e}  train_accuracy:{avg_accuracy_train:.4f}  test_accuracy:{avg_accuracy_test:.4f}  '
         info_extended = f'lr:{optimizer.param_groups[0]["lr"]:.9e}  time:{(record_time_epoch_step_tmp - record_time_epoch_step):.2f}s  time total:{((record_time_epoch_step_tmp - record_t0) / 60.0):.2f}min  time remain:{((record_time_epoch_step_tmp - record_t0) / 60.0 / epoch * (num_epoches - epoch)):.2f}min'
         record_time_epoch_step = record_time_epoch_step_tmp
         print(info_epoch + info_extended)
