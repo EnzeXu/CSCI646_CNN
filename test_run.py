@@ -28,6 +28,15 @@ def get_device(gpu_id):
     return device
 
 
+def adjust_learning_rate(e):
+    if e < 5:
+        return 0.001
+    elif 5 <= e <= 10:
+        return 0.0001
+    else:
+        return 0.00001
+
+
 def main():
     config = Config()
     model = Model(config)
@@ -42,7 +51,7 @@ def main():
 
 
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: 1 / (e / (0.01 * num_epoches) + 1))
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: adjust_learning_rate(e))
     loss_fun = nn.CrossEntropyLoss()#nn.MSELoss() ## cross entropy loss
 
     record_t0 = time.time()
