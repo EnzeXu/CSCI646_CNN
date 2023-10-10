@@ -40,10 +40,12 @@ class Model(nn.Module):
                 activation = getattr(nn, config.settings["activation_list"][i])()
                 dropout = nn.Dropout(config.settings["dropout_list"][i])
                 batch_norm = nn.BatchNorm2d(out_channels)
+                pooling = self.pooling
 
                 self.layers.append(conv_layer)
-                self.layers.append(activation)
                 self.layers.append(batch_norm)
+                self.layers.append(activation)
+                self.layers.append(pooling)
                 self.layers.append(dropout)
 
         for i in range(self.num_fc_layers):
@@ -53,6 +55,8 @@ class Model(nn.Module):
                 in_features=in_channels,
                 out_features=out_channels,
             ))
+            self.fc_layers.append(nn.ReLU())
+            self.fc_layers.append(nn.Dropout(0.2))
 
 
         ##------------------------------------------------
@@ -68,7 +72,7 @@ class Model(nn.Module):
         for layer in self.layers:
             x = layer(x)
 
-        x = self.pooling(x)
+
         x = x.view(x.size(0), -1)
         # print("x shape:", x.shape)
         for layer in self.fc_layers:

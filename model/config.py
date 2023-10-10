@@ -6,7 +6,7 @@ SETTINGS = {
         "num_layers": 3,
         "layer_list": ["Conv2d", "Conv2d", "Conv2d"],
         "activation_list": ["ReLU", "ReLU", "ReLU"],
-        "layer_size_list": [3, 8, 16, 32],
+        "layer_size_list": [3, 16, 32, 64],
         "kernel_size_list": [3, 3, 3],
         "padding_list": [1, 1, 1],
         "stride_list": [1, 1, 1],
