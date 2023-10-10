@@ -5,6 +5,7 @@ import time
 import torch.nn as nn
 import numpy as np
 import wandb
+import json
 import random
 from model import Model
 from model import Config
@@ -39,6 +40,8 @@ def adjust_learning_rate(e):
 
 def main():
     config = Config()
+    config_print = config.__dict__.copy()
+    print(json.dumps(config_print, indent=4))
     model = Model(config)
     print(model)
     set_seed(config.seed)

@@ -70,4 +70,5 @@ class Config:
             setattr(self, attr_name, getattr(self.args, attr_name))
 
         self.settings = SETTINGS.get(self.args.prob)
-        print(json.dumps(self.__dict__, indent=4))
+
+
