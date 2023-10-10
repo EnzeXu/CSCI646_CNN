@@ -25,7 +25,7 @@ class Config:
         # parser.add_argument("--epoch", type=int, default=50, help="Number of epoch")
         parser.add_argument("--gpu_id", type=int, default=0, help="GPU id")
         parser.add_argument("--seed", type=int, default=0, help="Random seed")
-        parser.add_argument("--init", type=int, default=0, help="initialization of weights")
+        parser.add_argument("--init", type=int, default=1, help="initialization of weights")
 
         # parser.add_argument("-fc_hidden1", dest="fc_hidden1", type=int, default=100, help="dim of hidden neurons")
         # parser.add_argument("-fc_hidden2", dest="fc_hidden2", type=int, default=100, help="dim of hidden neurons")
