@@ -55,8 +55,9 @@ class Model(nn.Module):
                 in_features=in_channels,
                 out_features=out_channels,
             ))
-            self.fc_layers.append(nn.ReLU())
-            self.fc_layers.append(nn.Dropout(0.2))
+            if i != self.num_fc_layers - 1:
+                self.fc_layers.append(nn.ReLU())
+                self.fc_layers.append(nn.Dropout(0.2))
 
 
         ##------------------------------------------------
