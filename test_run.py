@@ -75,7 +75,8 @@ def main():
         for batch_id, (x_batch, y_labels) in enumerate(train_loader):
             x_batch, y_labels = x_batch.clone().to(device), y_labels.clone().to(device)
             output_y = model(x_batch)
-
+            print("x_batch", x_batch.shape, "y_labels", y_labels.shape)
+            print(output_y.shape)
             loss = loss_fun(output_y, y_labels)
             loss_list.append(loss.item())
 
