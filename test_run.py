@@ -17,7 +17,7 @@ def main():
     ## initialize hyper-parameters
     config = Config()
     model = Model(config)
-    num_epoches = config.settings["epoch"]
+    num_epoches = config.settings["epochs"]
     # decay = config.decay
     learning_rate = config.lr
 
