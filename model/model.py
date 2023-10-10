@@ -1,4 +1,5 @@
 import torch
+import torchvision
 import torch.nn as nn
 
 
@@ -23,6 +24,11 @@ class Model(nn.Module):
         self.layers = nn.ModuleList()
         self.pooling = nn.MaxPool2d(kernel_size=2, stride=2)
         self.fc_layers = nn.ModuleList()
+
+        self.resnet18 = None
+        if "ResNet18" in config.settings["layer_list"]:
+            self.resnet18 = torchvision.models.resnet18(pretrained=True)
+            self.resnet18 = nn.Sequential(*list(self.resnet18.children())[:-2])
 
         for i in range(self.num_layers):
             if config.settings["layer_list"][i] == "Conv2d":
@@ -49,6 +55,8 @@ class Model(nn.Module):
                 self.layers.append(activation)
                 self.layers.append(pooling)
                 self.layers.append(dropout)
+            elif config.settings["layer_list"][i] == "ResNet18":
+                self.layers.append(self.resnet18)
 
         for i in range(self.num_fc_layers):
             in_channels = config.settings["fc_layer_size_list"][i]

@@ -1,7 +1,24 @@
 import argparse
+import json
 
 SETTINGS = {
     "CIFAR10-CNN": {
+        "dataset": "CIFAR10",
+        "epochs": 90,
+        "num_layers": 3,
+        "layer_list": ["Conv2d", "Conv2d", "Conv2d"],
+        "activation_list": ["ReLU", "ReLU", "ReLU"],
+        "layer_size_list": [3, 32, 64, 128],
+        "kernel_size_list": [3, 3, 3],
+        "padding_list": [0, 0, 0],
+        "stride_list": [1, 1, 1],
+        "dropout_list": [0.2, 0.3, 0.4],
+        "num_fc_layers": 2,
+        "fc_layer_size_list": [512, 128, 10],
+        "img_width": 32,
+    },
+    "CIFAR100-ResNet18": {
+        "dataset": "CIFAR100",
         "epochs": 90,
         "num_layers": 3,
         "layer_list": ["Conv2d", "Conv2d", "Conv2d"],
@@ -53,3 +70,4 @@ class Config:
             setattr(self, attr_name, getattr(self.args, attr_name))
 
         self.settings = SETTINGS.get(self.args.prob)
+        print(json.dumps(self.__dict__, indent=4))

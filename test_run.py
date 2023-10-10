@@ -46,7 +46,7 @@ def main():
     print("using {}".format(device))
     num_epoches = config.settings["epochs"]
     learning_rate = config.lr
-    train_loader, test_loader = get_dataset(config.batch_size)
+    train_loader, test_loader = get_dataset(config)
     model.to(device)
 
 
