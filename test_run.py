@@ -29,7 +29,7 @@ def main():
     ## Step 3: write the LOSS FUNCTION ##
     ## --------------------------------------------------
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: 1 / (e / (0.1 * config.epochs) + 1))
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: 1 / (e / (0.1 * num_epoches) + 1))
     loss_fun = nn.MSELoss() ## cross entropy loss
 
     ##--------------------------------------------
