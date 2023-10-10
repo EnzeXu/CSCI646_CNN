@@ -2,7 +2,7 @@ import argparse
 
 SETTINGS = {
     "CIFAR10-CNN": {
-        "epochs": 2000,
+        "epochs": 10,
         "num_layers": 3,
         "layer_list": ["Conv2d", "Conv2d", "Conv2d"],
         "activation_list": ["ReLU", "ReLU", "ReLU"],
@@ -23,6 +23,8 @@ class Config:
         parser = argparse.ArgumentParser()
         parser.add_argument("--prob", type=str, default="CIFAR10-CNN", help="'CIFAR10-CNN' or 'CIFAR100-ResNet18'")
         # parser.add_argument("--epoch", type=int, default=50, help="Number of epoch")
+        parser.add_argument("--gpu_id", type=int, default=0, help="GPU id")
+        parser.add_argument("--seed", type=int, default=0, help="Random seed")
 
         # parser.add_argument("-fc_hidden1", dest="fc_hidden1", type=int, default=100, help="dim of hidden neurons")
         # parser.add_argument("-fc_hidden2", dest="fc_hidden2", type=int, default=100, help="dim of hidden neurons")
