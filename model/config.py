@@ -4,6 +4,7 @@ import json
 SETTINGS = {
     "CIFAR10-CNN": {
         "dataset": "CIFAR10",
+        "num_class": 10,
         "epochs": 90,
         "num_layers": 3,
         "layer_list": ["Conv2d", "Conv2d", "Conv2d"],
@@ -19,6 +20,7 @@ SETTINGS = {
     },
     "CIFAR100-ResNet18": {
         "dataset": "CIFAR100",
+        "num_class": 100,
         "epochs": 90,
         "num_layers": 3,
         "layer_list": ["Conv2d", "Conv2d", "Conv2d"],

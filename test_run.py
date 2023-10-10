@@ -68,7 +68,7 @@ def main():
     best_test_accuracy = -1
     best_test_epoch = -1
 
-    for epoch in range(1, num_epoches + 1):  # 10-50
+    for epoch in range(1, num_epoches + 1):
         accuracy_count = []
         loss_list = []
         model.train()
@@ -143,10 +143,10 @@ def main():
     checkpoint = torch.load(f"{pt_folder}/best.pt")
     model.load_state_dict(checkpoint["model_state_dict"])
 
-    true_positives = np.zeros(10)
-    false_positives = np.zeros(10)
-    true_negatives = np.zeros(10)
-    false_negatives = np.zeros(10)
+    true_positives = np.zeros(config.settings["num_class"])
+    false_positives = np.zeros(config.settings["num_class"])
+    true_negatives = np.zeros(config.settings["num_class"])
+    false_negatives = np.zeros(config.settings["num_class"])
 
     with torch.no_grad():
         accuracy_count = []
@@ -158,7 +158,7 @@ def main():
             accuracy = float(torch.sum(correct_match)) / x_batch.shape[0]
             accuracy_count.append(accuracy)
 
-            for i in range(10):
+            for i in range(config.settings["num_class"]):
                 true_positives[i] += ((y_labels == i) & (y_pred == i)).sum().item()
                 false_positives[i] += ((y_labels != i) & (y_pred == i)).sum().item()
                 true_negatives[i] += ((y_labels != i) & (y_pred != i)).sum().item()
@@ -183,5 +183,7 @@ def main():
 
 
 if __name__ == "__main__":
-    with wandb.init(project='CSCI646-CNN', name='CIFAR10-CNN'):
+    # with wandb.init(project='CSCI646-CNN', name='CIFAR10-CNN'):
+    #     main()
+    with wandb.init(project='CSCI646-CNN', name='CIFAR100-ResNet18'):
         main()
