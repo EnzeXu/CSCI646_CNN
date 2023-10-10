@@ -29,8 +29,8 @@ def main():
     ## Step 3: write the LOSS FUNCTION ##
     ## --------------------------------------------------
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    # scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: 1 / (e / (0.01 * num_epoches) + 1))
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=20, eta_min=0.000001 * 0.1)
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: 1 / (e / (0.01 * num_epoches) + 1))
+    # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=20, eta_min=0.000001 * 0.1)
     loss_fun = nn.CrossEntropyLoss()#nn.MSELoss() ## cross entropy loss
 
     ##--------------------------------------------
