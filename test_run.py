@@ -40,8 +40,7 @@ def adjust_learning_rate(e):
 
 def main():
     config = Config()
-    config_print = config.settings.__dict__.copy()
-    print(json.dumps(config_print, indent=4))
+    print(json.dumps(config.settings, indent=4))
     model = Model(config)
     print(model)
     set_seed(config.seed)
