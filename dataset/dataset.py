@@ -9,7 +9,7 @@ def get_dataset(batch_size):
     if not os.path.exists(data_folder_path):
         os.makedirs(data_folder_path)
 
-    train_trans = transforms.Compose([transforms.RandomRotation(degrees=(0, 30)),
+    train_trans = transforms.Compose([transforms.RandomRotation(10),
                                       transforms.RandomHorizontalFlip(),
                                       transforms.ToTensor(),
                                       transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
