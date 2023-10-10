@@ -61,6 +61,7 @@ class Model(nn.Module):
                 nn.init.xavier_uniform_(linear_layer.weight)
             self.fc_layers.append(linear_layer)
             if i != self.num_fc_layers - 1:
+                self.fc_layers.append(nn.BatchNorm1d(out_channels))
                 self.fc_layers.append(nn.ReLU())
                 self.fc_layers.append(nn.Dropout(0.2))
 
