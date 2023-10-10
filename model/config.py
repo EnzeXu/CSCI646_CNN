@@ -31,8 +31,8 @@ class Config:
         # parser.add_argument("-fc_hidden2", dest="fc_hidden2", type=int, default=100, help="dim of hidden neurons")
         parser.add_argument("--lr", type=float, default=0.001, help="Initial learning rate")
         # parser.add_argument("-decay", dest="decay", type=float, default=0.5, help="learning rate")
-        parser.add_argument("--batch_size", type=int, default=512, help="Batch size")
-        parser.add_argument("--dropout", type=float, default=0.4, help="Dropout rate")
+        parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
+        # parser.add_argument("--dropout", type=float, default=0.2, help="Dropout rate")
         # parser.add_argument("-rotation", dest="rotation", type=int, default=10, help="image rotation")
         # parser.add_argument("-load_checkpoint", dest="load_checkpoint", type=str2bool, default=True,
         #                     help="true of false")
