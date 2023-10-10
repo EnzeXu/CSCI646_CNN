@@ -18,8 +18,8 @@ def get_dataset(batch_size):
 
     train_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=True, train=True,
                                                  transform=train_trans)
-    test_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=True, train=False,
-                                                transform=train_trans)
+    test_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=False, train=False,
+                                                transform=test_trans)
 
     train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True, num_workers=8)
     test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False, num_workers=8)
