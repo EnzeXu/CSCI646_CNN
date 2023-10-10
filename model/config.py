@@ -12,7 +12,7 @@ SETTINGS = {
         "stride_list": [1, 1, 1],
         "dropout_list": [0.2, 0.2, 0.2],
         "num_fc_layers": 2,
-        "fc_layer_size_list": [8192, 128, 10],
+        "fc_layer_size_list": [1024, 128, 10],
         "img_width": 32,
     },
 }
