@@ -51,7 +51,8 @@ def main():
 
 
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: adjust_learning_rate(e))
+    # scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: adjust_learning_rate(e))
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=15, gamma=0.1)
     loss_fun = nn.CrossEntropyLoss()#nn.MSELoss() ## cross entropy loss
 
     record_t0 = time.time()
