@@ -1,3 +1,5 @@
+import os
+
 import torch
 import time
 import torch.nn as nn
@@ -44,6 +46,10 @@ def main():
     record_time_epoch_step = record_t0
 
     model = model.train()
+    pt_folder = f"./saves/{config.prob}/"
+    if not os.path.exists(pt_folder):
+        os.makedirs(pt_folder)
+        print(f"Created folder {pt_folder}")
     avg_accuracy_train, avg_accuracy_test = 0, 0
     for epoch in range(1, num_epoches + 1):  # 10-50
         accuracy_count = []
@@ -91,6 +97,16 @@ def main():
         print(info_epoch + info_extended)
         wandb.log(
             {'epoch': epoch, 'train_loss': avg_loss, 'accuracy': avg_accuracy_train, 'lr': optimizer.param_groups[0]["lr"]})
+        if epoch % 50 == 0 or epoch == 1:
+            pt_save_path = f"{pt_folder}/{epoch:04d}.pt"
+            checkpoint_info = {
+                "epoch": epoch,
+                "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": optimizer.state_dict(),
+                "scheduler_state_dict": scheduler.state_dict(),
+                "train_loss": avg_loss,
+            }
+            torch.save(checkpoint_info, pt_save_path)
         scheduler.step()
         ##----------------------------------------------------------
         ## Step 7: use wandb to visualize the loss blow
