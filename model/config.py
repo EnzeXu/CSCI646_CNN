@@ -30,8 +30,8 @@ SETTINGS = {
         "padding_list": [0, 0, 0],
         "stride_list": [1, 1, 1],
         "dropout_list": [0.2, 0.3, 0.4],
-        "num_fc_layers": 2,
-        "fc_layer_size_list": [512, 256, 100],
+        "num_fc_layers": 1,
+        "fc_layer_size_list": [512, 100],
         "img_width": 32,
     },
 }
