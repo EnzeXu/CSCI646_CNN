@@ -31,7 +31,7 @@ SETTINGS = {
         "stride_list": [1, 1, 1],
         "dropout_list": [0.2, 0.3, 0.4],
         "num_fc_layers": 2,
-        "fc_layer_size_list": [512, 128, 10],
+        "fc_layer_size_list": [512, 128, 100],
         "img_width": 32,
     },
 }
@@ -50,7 +50,7 @@ class Config:
         # parser.add_argument("-fc_hidden2", dest="fc_hidden2", type=int, default=100, help="dim of hidden neurons")
         parser.add_argument("--lr", type=float, default=0.001, help="Initial learning rate (base, with adjust lr func)")
         # parser.add_argument("-decay", dest="decay", type=float, default=0.5, help="learning rate")
-        parser.add_argument("--batch_size", type=int, default=128, help="Batch size")
+        parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
         # parser.add_argument("--dropout", type=float, default=0.2, help="Dropout rate")
         # parser.add_argument("-rotation", dest="rotation", type=int, default=10, help="image rotation")
         # parser.add_argument("-load_checkpoint", dest="load_checkpoint", type=str2bool, default=True,
