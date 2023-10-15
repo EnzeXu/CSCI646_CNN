@@ -7,7 +7,7 @@ import numpy as np
 import wandb
 import json
 import random
-from model import Model
+from model import ModelCNN, ModelResNet18
 from model import Config
 from dataset import get_dataset
 
@@ -41,7 +41,10 @@ def adjust_learning_rate(e):
 def main():
     config = Config()
     print(json.dumps(config.settings, indent=4))
-    model = Model(config)
+    if config.settings["dataset"] == "CIFAR10":
+        model = ModelCNN(config)
+    else:
+        model = ModelResNet18(config)
     print(model)
     set_seed(config.seed)
     device = get_device(config.gpu_id)

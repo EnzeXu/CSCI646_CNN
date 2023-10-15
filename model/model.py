@@ -3,19 +3,9 @@ import torchvision
 import torch.nn as nn
 
 
-class Model(nn.Module):
+class ModelCNN(nn.Module):
     def __init__(self, config):
-        super(Model, self).__init__()
-
-        self.conv = nn.Sequential(  # nn.Conv2d(in_channels,...),
-            # activation fun,
-            # dropout,
-            # nn.Conv2d(in_channels,...),
-            # activation fun,
-            # dropout,
-            ## continue like above,
-            ## **define pooling (bonus)**,
-        )
+        super(ModelCNN, self).__init__()
 
         self.config = config
 
@@ -73,31 +63,32 @@ class Model(nn.Module):
                 self.fc_layers.append(nn.ReLU())
                 self.fc_layers.append(nn.Dropout(0.2))
 
-
-        ##------------------------------------------------
-        ## write code to define fully connected layer below
-        ##------------------------------------------------
-        # in_size =
-        # out_size =
-        # self.fc = nn.Linear(in_size, out_size)
-
-    '''feed features to the model'''
-
-    def forward(self, x):  # default
+    def forward(self, x):
         for layer in self.layers:
             x = layer(x)
-
-
         x = x.view(x.size(0), -1)
-        # print("x shape:", x.shape)
         for layer in self.fc_layers:
             x = layer(x)
-        # x = self.fc_layer(x)
-
         return x
+
+
+class ModelResNet18(nn.Module):
+    def __init__(self, config):
+        super(ModelResNet18, self).__init__()
+
+        self.config = config
+
+        self.num_class = config.settings["num_class"]
+
+        self.resnet18 = torchvision.models.resnet18(pretrained=True)
+        self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, self.num_class)
+
+    def forward(self, x):
+        return self.resnet18(x)
+
 
 if __name__ == "__main__":
     from config import Config
 
-    model = Model(Config())
+    model = ModelCNN(Config())
     print(model)
