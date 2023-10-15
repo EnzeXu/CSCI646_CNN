@@ -9,19 +9,26 @@ def get_dataset(config):
     if not os.path.exists(data_folder_path):
         os.makedirs(data_folder_path)
 
-    train_trans = transforms.Compose([transforms.RandomRotation(10),
-                                      transforms.RandomHorizontalFlip(),
-                                      transforms.ToTensor(),
-                                      transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
-    test_trans = transforms.Compose([transforms.ToTensor(),
-                                      transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
+
     assert config.settings["dataset"] in ["CIFAR10", "CIFAR100"]
     if config.settings["dataset"] == "CIFAR10":
+        train_trans = transforms.Compose([transforms.RandomRotation(degrees=(0, 30)),
+                                          transforms.RandomHorizontalFlip(),
+                                          transforms.ToTensor(),
+                                          transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
+        test_trans = transforms.Compose([transforms.ToTensor(),
+                                         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
         train_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=True, train=True,
                                                      transform=train_trans)
         test_dataset = torchvision.datasets.CIFAR10(root=data_folder_path, download=False, train=False,
                                                     transform=test_trans)
     else:
+        train_trans = transforms.Compose([transforms.RandomRotation(degrees=(0, 30)),
+                                          transforms.RandomHorizontalFlip(),
+                                          transforms.ToTensor(),
+                                          transforms.Normalize((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761))])
+        test_trans = transforms.Compose([transforms.ToTensor(),
+                                         transforms.Normalize((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761))])
         train_dataset = torchvision.datasets.CIFAR100(root=data_folder_path, download=True, train=True,
                                                      transform=train_trans)
         test_dataset = torchvision.datasets.CIFAR100(root=data_folder_path, download=False, train=False,
