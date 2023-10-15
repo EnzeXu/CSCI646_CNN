@@ -78,7 +78,7 @@ def main():
             print("x_batch", x_batch.shape, "y_labels", y_labels.shape)
             print(output_y.shape)
             print(output_y[:5])
-            print(y_labels[:5])
+            print(y_labels[:])
             loss = loss_fun(output_y, y_labels)
             print(loss)
             loss_float = float(loss.cpu().detach().numpy())
