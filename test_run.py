@@ -79,6 +79,7 @@ def main():
             print(output_y.shape)
             print(output_y[:5])
             print(y_labels[:])
+            print(output_y.shape[-1])
             assert ((0 <= y_labels) & (y_labels < output_y.shape[-1])).all()
             loss = loss_fun(output_y, y_labels)
             print(loss)
