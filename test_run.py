@@ -80,7 +80,7 @@ def main():
             print(output_y[:5])
             print(y_labels[:5])
             loss = loss_fun(output_y, y_labels)
-            print(loss.item())
+            print(loss)
             loss_float = float(loss.cpu().detach().numpy())
             loss_list.append(loss_float)
 
