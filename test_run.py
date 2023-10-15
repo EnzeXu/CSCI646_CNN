@@ -77,6 +77,8 @@ def main():
             output_y = model(x_batch)
             print("x_batch", x_batch.shape, "y_labels", y_labels.shape)
             print(output_y.shape)
+            print(output_y[:5])
+            print(y_labels[:5])
             loss = loss_fun(output_y, y_labels)
             loss_list.append(loss.item())
 
