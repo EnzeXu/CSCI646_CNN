@@ -21,7 +21,7 @@ SETTINGS = {
     "CIFAR100-ResNet18": {
         "dataset": "CIFAR100",
         "num_class": 100,
-        "epochs": 90,
+        "epochs": 200,
         "num_layers": 3,
         "layer_list": ["Conv2d", "Conv2d", "Conv2d"],
         "activation_list": ["ReLU", "ReLU", "ReLU"],
