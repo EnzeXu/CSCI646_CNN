@@ -80,7 +80,9 @@ def main():
             print(output_y[:5])
             print(y_labels[:5])
             loss = loss_fun(output_y, y_labels)
-            loss_list.append(float(loss.cpu().detach().numpy()))
+            print(loss.item())
+            loss_float = float(loss.cpu().detach().numpy())
+            loss_list.append(loss_float)
 
             optimizer.zero_grad()
             loss.backward()
