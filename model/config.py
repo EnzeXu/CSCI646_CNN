@@ -17,6 +17,7 @@ SETTINGS = {
         "num_fc_layers": 2,
         "fc_layer_size_list": [512, 128, 10],
         "img_width": 32,
+        "lr_scheduler_step_size": 15,
     },
     "CIFAR100-ResNet18": {
         "dataset": "CIFAR100",
@@ -27,6 +28,7 @@ SETTINGS = {
         "num_fc_layers": 1,
         "fc_layer_size_list": [512, 100],
         "img_width": 32,
+        "lr_scheduler_step_size": 40,
     },
 }
 
