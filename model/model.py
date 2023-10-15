@@ -89,7 +89,7 @@ class Model(nn.Module):
 
 
         x = x.view(x.size(0), -1)
-        print("x shape:", x.shape)
+        # print("x shape:", x.shape)
         for layer in self.fc_layers:
             x = layer(x)
         # x = self.fc_layer(x)
