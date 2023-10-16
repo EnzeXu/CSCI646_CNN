@@ -50,16 +50,16 @@ def main():
     device = get_device(config.gpu_id)
     print("using {}".format(device))
     num_epoches = config.settings["epochs"]
-    learning_rate = config.lr
+    lr = config.settings["init_lr"]
     train_loader, test_loader = get_dataset(config)
     model.to(device)
 
 
-    # optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9, weight_decay=1e-5)
+    # optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=1e-5)
     # scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: adjust_learning_rate(e))
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=config.settings["lr_scheduler_step_size"], gamma=0.1)
-    loss_fun = nn.CrossEntropyLoss().to(device)#nn.MSELoss() ## cross entropy loss
+    loss_fun = nn.CrossEntropyLoss().to(device)
 
     record_t0 = time.time()
     record_time_epoch_step = record_t0

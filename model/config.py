@@ -1,11 +1,13 @@
 import argparse
-import json
+
 
 SETTINGS = {
     "CIFAR10-CNN": {
         "dataset": "CIFAR10",
         "num_class": 10,
         "epochs": 90,
+        "init_lr": 0.001,
+        "batch_size": 64,
         "num_layers": 3,
         "layer_list": ["Conv2d", "Conv2d", "Conv2d"],
         "activation_list": ["ReLU", "ReLU", "ReLU"],
@@ -23,6 +25,8 @@ SETTINGS = {
         "dataset": "CIFAR100",
         "num_class": 100,
         "epochs": 200,
+        "init_lr": 0.01,
+        "batch_size": 64,
         "num_layers": 1,
         "layer_list": ["ResNet18"],
         "num_fc_layers": 1,
@@ -37,30 +41,9 @@ class Config:
     def __init__(self):
         parser = argparse.ArgumentParser()
         parser.add_argument("--prob", type=str, default="CIFAR10-CNN", help="'CIFAR10-CNN' or 'CIFAR100-ResNet18'")
-        # parser.add_argument("--epoch", type=int, default=50, help="Number of epoch")
         parser.add_argument("--gpu_id", type=int, default=0, help="GPU id")
         parser.add_argument("--seed", type=int, default=0, help="Random seed")
         parser.add_argument("--init", type=int, default=1, help="initialization of weights")
-
-        # parser.add_argument("-fc_hidden1", dest="fc_hidden1", type=int, default=100, help="dim of hidden neurons")
-        # parser.add_argument("-fc_hidden2", dest="fc_hidden2", type=int, default=100, help="dim of hidden neurons")
-        parser.add_argument("--lr", type=float, default=0.01, help="Initial learning rate (base, with adjust lr func)")
-        # parser.add_argument("-decay", dest="decay", type=float, default=0.5, help="learning rate")
-        parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
-        # parser.add_argument("--dropout", type=float, default=0.2, help="Dropout rate")
-        # parser.add_argument("-rotation", dest="rotation", type=int, default=10, help="image rotation")
-        # parser.add_argument("-load_checkpoint", dest="load_checkpoint", type=str2bool, default=True,
-        #                     help="true of false")
-
-        parser.add_argument("--activation", dest="activation", type=str, default="relu", help="Activation function from ['relu', 'tanh', 'elu', 'selu', 'sigmoid'] ")
-        # parser.add_argument("-MC", dest='MC', type=int, default=10, help="number of monte carlo")
-        # parser.add_argument("-channel_out1", dest='channel_out1', type=int, default=64, help="number of channels")
-        # parser.add_argument("-channel_out2", dest='channel_out2', type=int, default=64, help="number of channels")
-        # parser.add_argument("-k_size", dest='k_size', type=int, default=4, help="size of filter")
-        # parser.add_argument("-pooling_size", dest='pooling_size', type=int, default=2, help="size for max pooling")
-        # parser.add_argument("-stride", dest='stride', type=int, default=1, help="stride for filter")
-        # parser.add_argument("-max_stride", dest='max_stride', type=int, default=2, help="stride for max pooling")
-        # parser.add_argument("-ckp_path", dest='ckp_path', type=str, default="checkpoint", help="path of checkpoint")
 
         self.args = parser.parse_args()
 

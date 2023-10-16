@@ -12,7 +12,7 @@ def get_dataset(config):
 
     assert config.settings["dataset"] in ["CIFAR10", "CIFAR100"]
     if config.settings["dataset"] == "CIFAR10":
-        train_trans = transforms.Compose([transforms.RandomRotation(degrees=(0, 30)),
+        train_trans = transforms.Compose([transforms.RandomRotation(degrees=(-10, 10)),
                                           transforms.RandomHorizontalFlip(),
                                           transforms.ToTensor(),
                                           transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
@@ -34,7 +34,7 @@ def get_dataset(config):
         test_dataset = torchvision.datasets.CIFAR100(root=data_folder_path, download=False, train=False,
                                                     transform=test_trans)
 
-    train_loader = DataLoader(dataset=train_dataset, batch_size=config.batch_size, shuffle=True, num_workers=8)
-    test_loader = DataLoader(dataset=test_dataset, batch_size=config.batch_size, shuffle=False, num_workers=8)
+    train_loader = DataLoader(dataset=train_dataset, batch_size=config.settings["batch_size"], shuffle=True, num_workers=8)
+    test_loader = DataLoader(dataset=test_dataset, batch_size=config.settings["batch_size"], shuffle=False, num_workers=8)
 
     return train_loader, test_loader
