@@ -46,8 +46,6 @@ def main():
         model = ModelCNN(config)
     else:
         model = ModelResNet18(config)
-    print(model)
-    torchsummary.summary(model, (3, 32, 32))
     set_seed(config.seed)
     device = get_device(config.gpu_id)
     print("using {}".format(device))
@@ -55,6 +53,8 @@ def main():
     lr = config.settings["init_lr"]
     train_loader, test_loader = get_dataset(config)
     model.to(device)
+    print(model)
+    torchsummary.summary(model, (3, 32, 32))
 
 
     # optimizer = torch.optim.Adam(model.parameters(), lr=lr)
