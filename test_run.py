@@ -7,6 +7,7 @@ import numpy as np
 import wandb
 import json
 import random
+import torchsummary
 from model import ModelCNN, ModelResNet18
 from model import Config
 from dataset import get_dataset
@@ -46,6 +47,7 @@ def main():
     else:
         model = ModelResNet18(config)
     print(model)
+    torchsummary.summary(model, (3, 32, 32))
     set_seed(config.seed)
     device = get_device(config.gpu_id)
     print("using {}".format(device))
