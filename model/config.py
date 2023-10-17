@@ -24,8 +24,8 @@ SETTINGS = {
     },
     "CIFAR100-ResNet18": {
         "dataset": "CIFAR100",
-        "num_class": 240,
-        "epochs": 100,
+        "num_class": 100,
+        "epochs": 240,
         "init_lr": 0.01,
         "batch_size": 64,
         "num_layers": 1,
