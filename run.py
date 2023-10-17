@@ -1,5 +1,4 @@
 import os
-
 import torch
 import time
 import torch.nn as nn
@@ -30,15 +29,6 @@ def get_device(gpu_id):
     return device
 
 
-def adjust_learning_rate(e):
-    if e < 5:
-        return 0.001
-    elif 5 <= e <= 10:
-        return 0.0001
-    else:
-        return 0.00001
-
-
 def main():
     config = Config()
     print(json.dumps(config.settings, indent=4))
@@ -61,7 +51,6 @@ def main():
         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     elif config.settings["optimizer"] == "SGD":
         optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=1e-5)
-    # scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: adjust_learning_rate(e))
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=config.settings["lr_scheduler_step_size"], gamma=0.1)
     loss_fun = nn.CrossEntropyLoss().to(device)
 
@@ -131,8 +120,6 @@ def main():
                 torch.save(checkpoint_info, pt_save_path)
         # print(f"avg accuracy test = {avg_accuracy_test:.6f}")
 
-
-        # print(f"Epoch {epoch:04d} / {num_epoches:04d}: avg accuracy train = {avg_accuracy_train:.6f}")
         record_time_epoch_step_tmp = time.time()
         info_epoch = f'Epoch:{epoch:04d}/{num_epoches:04d}  train loss:{avg_loss:.4e}  train_accuracy:{avg_accuracy_train:.4f}  test_accuracy:{avg_accuracy_test:.4f}  '
         info_extended = f'lr:{optimizer.param_groups[0]["lr"]:.9e}  time:{(record_time_epoch_step_tmp - record_time_epoch_step):.2f}s  time total:{((record_time_epoch_step_tmp - record_t0) / 60.0):.2f}min  time remain:{((record_time_epoch_step_tmp - record_t0) / 60.0 / epoch * (num_epoches - epoch)):.2f}min'
@@ -189,11 +176,9 @@ def main():
     print("Precision Distribution:", precision)
     print("Recall Distribution:", recall)
     print("F1 Score Distribution:", f1_score)
-    print(f"Precision: {avg_precision:.4f}")
-    print(f"Recall: {avg_recall:.4f}")
-    print(f"F1 Score: {avg_f1_score:.4f}")
-
-
+    print(f"Precision: {avg_precision:.6f}")
+    print(f"Recall: {avg_recall:.6f}")
+    print(f"F1 Score: {avg_f1_score:.6f}")
 
 
 if __name__ == "__main__":

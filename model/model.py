@@ -80,15 +80,6 @@ class ModelResNet18(nn.Module):
 
         self.num_class = config.settings["num_class"]
 
-        # self.resnet18 = torchvision.models.resnet18(pretrained=False)
-        # self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, 256)
-        #
-        # self.fc_layers = nn.ModuleList()
-        # self.fc_layers.append(nn.BatchNorm1d(256))
-        # self.fc_layers.append(nn.ReLU())
-        # self.fc_layers.append(nn.Dropout(0.2))
-        # self.fc_layers.append(nn.Linear(256, 100))
-
         self.conv_layer_1 = torch.nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3, stride=1, padding=1),
             nn.BatchNorm2d(64),
