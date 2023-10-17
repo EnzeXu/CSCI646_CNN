@@ -80,11 +80,14 @@ class ModelResNet18(nn.Module):
 
         self.num_class = config.settings["num_class"]
 
-        self.resnet18 = torchvision.models.resnet18(pretrained=False, num_classes=100)
-        # self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, self.num_class)
+        self.resnet18 = torchvision.models.resnet18(pretrained=False)
+        self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, 256)
+        self.fc = nn.Linear(256, 100)
 
     def forward(self, x):
-        return self.resnet18(x)
+        x = self.resnet18(x)
+        x = self.fc(x)
+        return x
 
 
 if __name__ == "__main__":
