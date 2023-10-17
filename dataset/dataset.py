@@ -37,4 +37,6 @@ def get_dataset(config):
     train_loader = DataLoader(dataset=train_dataset, batch_size=config.settings["batch_size"], shuffle=True, num_workers=8)
     test_loader = DataLoader(dataset=test_dataset, batch_size=config.settings["batch_size"], shuffle=False, num_workers=8)
 
+    print(f"[Dataset size] Train: {len(train_loader)}, Test: {len(test_loader)}, Total: {len(train_loader) + len(test_loader)}")
+
     return train_loader, test_loader
