@@ -56,9 +56,11 @@ def main():
     print(model)
     torchsummary.summary(model, (3, 32, 32))
 
-
-    # optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=1e-5)
+    optimizer = None
+    if config.settings["optimizer"] == "Adam":
+        optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    elif config.settings["optimizer"] == "SGD":
+        optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=1e-5)
     # scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda e: adjust_learning_rate(e))
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=config.settings["lr_scheduler_step_size"], gamma=0.1)
     loss_fun = nn.CrossEntropyLoss().to(device)
