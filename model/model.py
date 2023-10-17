@@ -144,7 +144,12 @@ class ModelResNet18(nn.Module):
         )
 
     def forward(self, x):
-        x = self.resnet18(x)
+        x = self.conv_layer_1(x)
+        x = self.conv_layer_2(x)
+        x = self.res_layer1(x) + x
+        x = self.conv_layer_3(x)
+        x = self.conv_layer_4(x)
+        x = self.res_layer2(x) + x
         x = self.fc(x)
         return x
 
