@@ -25,7 +25,7 @@ SETTINGS = {
     "CIFAR100-ResNet18": {
         "dataset": "CIFAR100",
         "num_class": 100,
-        "epochs": 200,
+        "epochs": 100,
         "init_lr": 0.01,
         "batch_size": 64,
         "num_layers": 1,
@@ -33,7 +33,7 @@ SETTINGS = {
         "num_fc_layers": 2,
         "fc_layer_size_list": [512, 256, 100],
         "img_width": 32,
-        "lr_scheduler_step_size": 40,
+        "lr_scheduler_step_size": 20,
         "optimizer": "SGD",
     },
 }
