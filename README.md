@@ -6,7 +6,7 @@ In this assignment, please use Pytorch (not Tensorflow) to implement the convolu
 
 # 2. Getting Started
 
-This project is developed using Python 3.9 and is compatible with macOS, Linux, and Windows operating systems.
+This project is developed using Python 3.9+ and is compatible with macOS, Linux, and Windows operating systems.
 
 ## 2.1 Preparations
 
@@ -43,7 +43,7 @@ You can use the command deactivate to exit the virtual environment at any time.
 
 ## 2.3 Install Packages
 
-(1) Install main dependent packages.
+Install dependent packages.
 ```shell
 (venv) ~/CSCI646_CNN $ pip install -r requirements.txt
 ```
