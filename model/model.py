@@ -80,19 +80,72 @@ class ModelResNet18(nn.Module):
 
         self.num_class = config.settings["num_class"]
 
-        self.resnet18 = torchvision.models.resnet18(pretrained=False)
-        self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, 256)
+        # self.resnet18 = torchvision.models.resnet18(pretrained=False)
+        # self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, 256)
+        #
+        # self.fc_layers = nn.ModuleList()
+        # self.fc_layers.append(nn.BatchNorm1d(256))
+        # self.fc_layers.append(nn.ReLU())
+        # self.fc_layers.append(nn.Dropout(0.2))
+        # self.fc_layers.append(nn.Linear(256, 100))
 
-        self.fc_layers = nn.ModuleList()
-        self.fc_layers.append(nn.BatchNorm1d(256))
-        self.fc_layers.append(nn.ReLU())
-        self.fc_layers.append(nn.Dropout(0.2))
-        self.fc_layers.append(nn.Linear(256, 100))
+        self.conv_layer_1 = torch.nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+        )
+        self.conv_layer_2 = torch.nn.Sequential(
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            torch.nn.MaxPool2d(kernel_size=2)
+        )
+
+        self.res_layer1 = torch.nn.Sequential(
+            nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+        )
+
+        self.conv_layer_3 = torch.nn.Sequential(
+            nn.Conv2d(in_channels=128, out_channels=256, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            torch.nn.MaxPool2d(kernel_size=2)
+        )
+
+        self.conv_layer_4 = torch.nn.Sequential(
+            nn.Conv2d(in_channels=256, out_channels=512, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+            torch.nn.MaxPool2d(kernel_size=2)
+        )
+
+        self.res_layer2 = torch.nn.Sequential(
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+        )
+
+        self.fc = nn.Sequential(
+            nn.MaxPool2d(2),
+            nn.Flatten(),
+            nn.Linear(512 * 2 * 2,  256),
+            nn.BatchNorm1d(256),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(256, 100),
+        )
 
     def forward(self, x):
         x = self.resnet18(x)
-        for layer in self.fc_layers:
-            x = layer(x)
+        x = self.fc(x)
         return x
 
 
