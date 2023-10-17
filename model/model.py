@@ -82,11 +82,17 @@ class ModelResNet18(nn.Module):
 
         self.resnet18 = torchvision.models.resnet18(pretrained=False)
         self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, 256)
-        self.fc = nn.Linear(256, 100)
+
+        self.fc_layers = nn.ModuleList()
+        self.fc_layers.append(nn.BatchNorm1d(256))
+        self.fc_layers.append(nn.ReLU())
+        self.fc_layers.append(nn.Dropout(0.2))
+        self.fc_layers.append(nn.Linear(256, 100))
 
     def forward(self, x):
         x = self.resnet18(x)
-        x = self.fc(x)
+        for layer in self.fc_layers:
+            x = layer(x)
         return x
 
 
